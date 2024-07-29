@@ -162,7 +162,6 @@ async function sendContestReminders() {
   const currentTime = new Date().getTime();
 
   for (const userId in userSelections) {
-    bot.sendMessage(userId, "Remainder");
     const contests = userSelections[userId];
     for (let i = contests.length - 1; i >= 0; i--) {
       const contest = contests[i];
@@ -188,6 +187,6 @@ async function sendContestReminders() {
   }
 }
 
-cron.schedule("*/10 * * * * *", () => {
+cron.schedule("*/5  * * * *", () => {
   sendContestReminders();
 });
