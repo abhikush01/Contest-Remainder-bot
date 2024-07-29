@@ -1,3 +1,4 @@
+require("dotenv").config();
 const TelegramBot = require("node-telegram-bot-api");
 const cron = require("node-cron");
 const {
@@ -23,6 +24,9 @@ async function getAllContest() {
 }
 
 const token = process.env.TOKEN;
+console.log(token);
+
+const bot = new TelegramBot(token, { polling: true });
 
 function formatContestDetails(contest) {
   const startTime = new Date(contest.startTime);
@@ -40,8 +44,6 @@ function formatContestDetails(contest) {
 
   return `Platform: ${contest.platform}\nName: ${contest.name}\nURL: ${contest.url}\nBegins at: ${formattedTime} ${formattedDate} (IST)\nDuration: ${contest.duration} \n`;
 }
-
-const bot = new TelegramBot(token, { polling: true });
 
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
